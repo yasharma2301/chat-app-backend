@@ -1,11 +1,11 @@
 import express from 'express';
 import { config } from 'dotenv';
-import connectDB from './config/db.js'
 import userRoutes from './Routes/userRoutes.js'
+import mongoose from 'mongoose';
 
 const app = express();
 config();
-connectDB();
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send(`Welcome to Let's Chat server!`);
@@ -13,5 +13,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', userRoutes);
 
-const port = process.env.PORT || 5000;
-app.listen(port, console.log(`Server started at port: ${port}`));
+const PORT = process.env.PORT || 5000;
+
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
+    .catch((error) => console.log(error.message))
