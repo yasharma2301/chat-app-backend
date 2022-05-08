@@ -1,6 +1,7 @@
 import express from 'express';
 import { config } from 'dotenv';
 import userRoutes from './Routes/userRoutes.js'
+import chatRoutes from './Routes/chatRoutes.js'
 import mongoose from 'mongoose';
 import { notFound, errorHandler } from './middleware/errorMiddlerware.js'
 
@@ -13,6 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', userRoutes);
+app.use('/api/chat', chatRoutes);
 
 app.use(notFound)
 app.use(errorHandler)

@@ -9,8 +9,7 @@ export const protect = asyncHandler(async (req, res, next) => {
         try {
             token = req.headers.authorization.split(' ')[1];
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-            console.log(decodedToken)
-            req.user = await User.findById(decodedToken.id).select('-password');
+            req.user = await User.findById(decodedToken.id).select('-password'); // select everything but password
             next();
         } catch (error) {
             res.status(401);
