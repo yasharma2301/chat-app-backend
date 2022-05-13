@@ -20,7 +20,7 @@ app.use(cors({ origin: "*" }));
 const io = new Server(httpServer, {
     pingTimeout: 60000,
     cors: {
-        origin: 'http://localhost:3000'
+        origin: 'https://letss-chatt.netlify.app'
     }
 });
 const PORT = process.env.PORT || 5000;
