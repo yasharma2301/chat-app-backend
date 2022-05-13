@@ -7,11 +7,15 @@ import mongoose from 'mongoose';
 import { notFound, errorHandler } from './middleware/errorMiddlerware.js'
 import { Server } from "socket.io";
 import { createServer } from "http";
+import cors from 'cors'
 
 const app = express();
 const httpServer = createServer(app);
 config();
-app.use(express.json())
+app.use(express.json());
+
+// cross origin requests
+app.use(cors({ origin: "*" }));
 
 const io = new Server(httpServer, {
     pingTimeout: 60000,
